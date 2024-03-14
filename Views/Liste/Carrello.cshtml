@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Carrello";
+}
+
+<h2>Carrello</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+            <th>Tempo di Consegna</th>
+
+        </tr>
+    </thead>
+        <tbody>
+
+            @foreach (var articolo in Model)
+            {
+                <tr>
+                    <td>@articolo.Nome</td>
+                    <td>@articolo.Prezzo</td>
+                    <td>@articolo.Quantità</td>
+                    <td>@articolo.TempoConsegna</td>
+                </tr>
+            }
+
+        </tbody>
+
+</table>
