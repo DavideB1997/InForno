@@ -1,48 +1,70 @@
-﻿<table class="table table-striped">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Nome</th>
-            <th>Descrizione</th>
-            <th>Prezzo</th>
-            <th>Tempo di Consegna</th>
-            <th>Ingredienti</th>
-        </tr>
-    </thead>
-    @using (Html.BeginForm("AddCarrello", "Add", FormMethod.Post, new { @class = "row g-3" }))
-    {
-        <tbody>
+﻿@if (ViewBag.CookiePresente != false)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+                <th>Tempo di Consegna</th>
+                <th>Ingredienti</th>
+            </tr>
+        </thead>
+        @using (Html.BeginForm("AddCarrello", "Add", FormMethod.Post, new { @class = "row g-3" }))
+        {
+            <tbody>
 
-            @foreach (var articolo in Model)
-            {
+                @foreach (var articolo in Model)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="IdArticolo" value="@articolo.IdArticolo" id="@articolo.IdArticolo"></td>
+                        <td>@articolo.Nome</td>
+                        <td>@articolo.Descrizione</td>
+                        <td>@articolo.Prezzo</td>
+                        <td>@articolo.TempoConsegna</td>
+                        <td>
+                            <ul>
+                                @foreach (var ingrediente in articolo.Ingredientis)
+                                {
+                                    <li>@ingrediente.Nome - @ingrediente.Descrizione</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <select name="quantita">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
                 <tr>
-                    <td><input type="checkbox" name="IdArticolo" value="@articolo.IdArticolo" id="@articolo.IdArticolo"></td>
-                    <td>@articolo.Nome</td>
-                    <td>@articolo.Descrizione</td>
-                    <td>@articolo.Prezzo</td>
-                    <td>@articolo.TempoConsegna</td>
-                    <td>
-                        <ul>
-                            @foreach (var ingrediente in articolo.Ingredienti)
-                            {
-                                <li>@ingrediente.Nome - @ingrediente.Descrizione</li>
-                            }
-                        </ul>
-                    </td>
-                    <td>
-                        <select name="quantita">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </td>
+                    <td colspan="6"></td>
+                    <td><button type="submit" class="btn btn-primary">Aggiungi</button></td>
                 </tr>
-            }
+            </tfoot>
+        }
 
-        </tbody>
-        <button type="submit" class="btn btn-primary">Aggiungi</button>
-    }
+    </table>
 
-</table>
+}
+else
+{
+
+    <p>Devi loggare per fare un Ordine!</p>
+
+
+
+}
+
+
+
+
+

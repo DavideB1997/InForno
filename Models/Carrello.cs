@@ -12,8 +12,8 @@ namespace InForno.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Carrello()
         {
-            ArticoloCarrello = new HashSet<ArticoloCarrello>();
-            Ordine = new HashSet<Ordine>();
+            ArticoloCarrelloes = new HashSet<ArticoloCarrello>();
+            Ordines = new HashSet<Ordine>();
         }
 
         [Key]
@@ -24,12 +24,14 @@ namespace InForno.Models
         [StringLength(50)]
         public string IdUtente { get; set; }
 
+        public int? Evaso { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ArticoloCarrello> ArticoloCarrello { get; set; }
+        public virtual ICollection<ArticoloCarrello> ArticoloCarrelloes { get; set; }
 
         public virtual Utenti Utenti { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ordine> Ordine { get; set; }
+        public virtual ICollection<Ordine> Ordines { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace Social.Models
 
         public override string[] GetRolesForUser(string userId)
         {
-            string role = db.Utenti.Where(u => u.Utente.ToString() == userId).FirstOrDefault().Ruolo;
+            string role = db.Utentis.Where(u => u.Utente.ToString() == userId).FirstOrDefault().Ruolo;
             string[] roles = new string[] { role };
             return roles;
         }

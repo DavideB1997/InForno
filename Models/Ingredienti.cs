@@ -12,7 +12,7 @@ namespace InForno.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ingredienti()
         {
-            Articolo = new HashSet<Articolo>();
+            Articoloes = new HashSet<Articolo>();
         }
 
         [Key]
@@ -26,6 +26,6 @@ namespace InForno.Models
         public string Descrizione { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Articolo> Articolo { get; set; }
+        public virtual ICollection<Articolo> Articoloes { get; set; }
     }
 }

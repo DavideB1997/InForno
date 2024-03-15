@@ -12,8 +12,6 @@ namespace InForno.Models
         [Key]
         public int IdOrdine { get; set; }
 
-        public bool Evaso { get; set; }
-
         [Required]
         [StringLength(255)]
         public string Indirizzo { get; set; }
@@ -22,6 +20,9 @@ namespace InForno.Models
         public string Note { get; set; }
 
         public int IdCarrello { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? DataOrdine { get; set; }
 
         public virtual Carrello Carrello { get; set; }
     }

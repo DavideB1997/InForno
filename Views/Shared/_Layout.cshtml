@@ -19,11 +19,28 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Informazioni", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contatto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Articolo", "Index", "Add", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Ingrediente", "Ingrediente", "Add", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Lista Articoli", "Articolo", "Liste", new { area = "" }, new { @class = "nav-link" })</li>
+
+
+                    <li>@Html.ActionLink("Carrello", "Carrello", "Liste", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("OrdiniLista", "Ordinilista", "Liste", new { area = "" }, new { @class = "nav-link" })</li>
+
+
+
+                    @if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+                    {
+                        <li>@Html.ActionLink("LogOut", "LogOut", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+
+                        <li>@Html.ActionLink("Registrati", "Reg", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Login", "TestLogin", "Auth", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+
+
                 </ul>
             </div>
         </div>

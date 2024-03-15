@@ -1,34 +1,61 @@
 ﻿
+
 @{
     ViewBag.Title = "Carrello";
 }
 
-<h2>Carrello</h2>
+<h2>Carrello @ViewBag.Totale</h2>
+
+
+
+@using (Html.BeginForm("AddOrdine", "Add", FormMethod.Post, new { @class = "row g-3" }))
+{
+    <div class="mb-3">
+        <label for="Indirizzo" class="form-label">Indirizzo</label>
+        <input type="text" class="form-control" id="Indirizzo" name="Indirizzo">
+    </div>
+
+    <div class="mb-3">
+        <label for="Note" class="form-label">Note</label>
+        <input type="text" class="form-control" id="Note" name="Note">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Fai ordine</button>
+}
+
+
+
+
+
+
+
 
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th></th>
             <th>Nome</th>
+            <th>Descrizione</th>
             <th>Prezzo</th>
             <th>Quantità</th>
             <th>Tempo di Consegna</th>
 
         </tr>
     </thead>
-        <tbody>
-
-            @foreach (var articolo in Model)
+    <tbody>
+           @foreach (var articolo in ViewBag.ArticoliDaCarrello)
             {
-                <tr>
-                    <td>@articolo.Nome</td>
-                    <td>@articolo.Prezzo</td>
-                    <td>@articolo.Quantità</td>
-                    <td>@articolo.TempoConsegna</td>
-                </tr>
+                if (articolo.Evaso == 0)
+                {
+                    <tr>
+                        <td>@articolo.Nome</td>
+                        <td>@articolo.Descrizione</td>
+                        <td>@articolo.Prezzo</td>
+                        <td>@articolo.Quantità</td>
+                        <td>@articolo.TempoConsegna</td>
+                    </tr>
+                }
             }
-
-        </tbody>
+    </tbody>
 
 </table>

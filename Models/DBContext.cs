@@ -12,12 +12,12 @@ namespace InForno.Models
         {
         }
 
-        public virtual DbSet<Articolo> Articolo { get; set; }
-        public virtual DbSet<Carrello> Carrello { get; set; }
-        public virtual DbSet<Ingredienti> Ingredienti { get; set; }
-        public virtual DbSet<Ordine> Ordine { get; set; }
-        public virtual DbSet<Utenti> Utenti { get; set; }
-        public virtual DbSet<ArticoloCarrello> ArticoloCarrello { get; set; }
+        public virtual DbSet<Articolo> Articoloes { get; set; }
+        public virtual DbSet<Carrello> Carrelloes { get; set; }
+        public virtual DbSet<Ingredienti> Ingredientis { get; set; }
+        public virtual DbSet<Ordine> Ordines { get; set; }
+        public virtual DbSet<Utenti> Utentis { get; set; }
+        public virtual DbSet<ArticoloCarrello> ArticoloCarrelloes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -34,13 +34,13 @@ namespace InForno.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Articolo>()
-                .HasMany(e => e.ArticoloCarrello)
+                .HasMany(e => e.ArticoloCarrelloes)
                 .WithRequired(e => e.Articolo)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Articolo>()
-                .HasMany(e => e.Ingredienti)
-                .WithMany(e => e.Articolo)
+                .HasMany(e => e.Ingredientis)
+                .WithMany(e => e.Articoloes)
                 .Map(m => m.ToTable("Ingrediente_Articolo").MapLeftKey("IdArticolo").MapRightKey("IdIngrediente"));
 
             modelBuilder.Entity<Carrello>()
@@ -48,12 +48,12 @@ namespace InForno.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Carrello>()
-                .HasMany(e => e.ArticoloCarrello)
+                .HasMany(e => e.ArticoloCarrelloes)
                 .WithRequired(e => e.Carrello)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Carrello>()
-                .HasMany(e => e.Ordine)
+                .HasMany(e => e.Ordines)
                 .WithRequired(e => e.Carrello)
                 .WillCascadeOnDelete(false);
 
@@ -90,7 +90,7 @@ namespace InForno.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Utenti>()
-                .HasMany(e => e.Carrello)
+                .HasMany(e => e.Carrelloes)
                 .WithOptional(e => e.Utenti)
                 .HasForeignKey(e => e.IdUtente);
         }

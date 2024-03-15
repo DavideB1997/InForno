@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using InForno.Models;
 using System.Configuration;
 using System.Transactions;
+using System.EnterpriseServices;
+using System.Web.Security;
 
 namespace InForno.Controllers
 {
@@ -98,14 +100,6 @@ namespace InForno.Controllers
         }
 
 
-
-
-
-
-
-
-
-
         public ActionResult Ingrediente()
         {
             return View("~/Views/Add/AddIngrediente.cshtml");
@@ -133,9 +127,23 @@ namespace InForno.Controllers
 
         public ActionResult AddCarrello(List<int> IdArticolo, int quantita)
         {
+            string idUtente = "";
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                string userData = ticket.UserData;
+
+                idUtente = userData;
+            }
+            else
+            {
+                return RedirectToAction("TestLogin", "Auth");
+            }
+
+
             using (var conn = new SqlConnection(connectionString))
             {
-                string idUtente = "asd";
                 int idCarrello = 0;
                 conn.Open();
 
@@ -158,14 +166,9 @@ namespace InForno.Controllers
                     var cmdAddCarrello = new SqlCommand("INSERT INTO Carrello (IdUtente) VALUES (@idUtente); SELECT SCOPE_IDENTITY();", conn);
                     cmdAddCarrello.Parameters.AddWithValue("@idUtente", idUtente);
 
+                    
                     idCarrello = Convert.ToInt32(cmdAddCarrello.ExecuteScalar());
-                    cmdAddCarrello.ExecuteNonQuery();
-
                 }
-
-
-
-
 
 
                 conn.Close();
@@ -175,7 +178,6 @@ namespace InForno.Controllers
 
                 foreach (int idArticolo in IdArticolo)
                 {
-                    //fixxare il login e aggiungerlo qui
                     var command = new SqlCommand("INSERT INTO ArticoloCarrello (IdArticolo, IdCarrello, Quantità) VALUES (@idArticolo, @idCarrello, @quantità)", conn);
 
                     {
@@ -191,6 +193,71 @@ namespace InForno.Controllers
         }
 
 
+
+
+        public ActionResult AddOrdine(string indirizzo, string note )
+        {
+            string idUtente = "";
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                string userData = ticket.UserData;
+
+                idUtente = userData;
+            }
+            else
+            {
+                return RedirectToAction("TestLogin", "Auth");
+            }
+
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                int idCarrello = 0;
+                conn.Open();
+
+                var cmdCarrello = new SqlCommand("SELECT IdCarrello FROM Carrello WHERE IdUtente = @idUtente", conn);
+
+                cmdCarrello.Parameters.AddWithValue("@idUtente", idUtente);
+
+                using (var reader = cmdCarrello.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        idCarrello = (int)reader["IdCarrello"];
+                    }
+                }
+
+
+
+                if (idCarrello == 0)
+                {
+                    var cmdAddCarrello = new SqlCommand("INSERT INTO Carrello (IdUtente) VALUES (@idUtente); SELECT SCOPE_IDENTITY();", conn);
+                    cmdAddCarrello.Parameters.AddWithValue("@idUtente", idUtente);
+
+
+                    idCarrello = Convert.ToInt32(cmdAddCarrello.ExecuteScalar());
+                }
+
+
+
+                var cmdOrdine = new SqlCommand("INSERT INTO Ordine (Indirizzo, Note, IdCarrello) VALUES (@indirizzo, @note, @idCarrello)", conn);
+                cmdOrdine.Parameters.AddWithValue("@indirizzo", indirizzo);
+                cmdOrdine.Parameters.AddWithValue("@note", note);
+                cmdOrdine.Parameters.AddWithValue("@idCarrello", idCarrello);
+
+                cmdOrdine.ExecuteNonQuery();
+
+
+
+            }
+
+
+            return View("~/Views/Home/Index.cshtml");
+
+
+        }
 
     }
 }

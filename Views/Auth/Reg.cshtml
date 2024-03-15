@@ -1,0 +1,28 @@
+﻿@using (Html.BeginForm("Reg", "Auth", FormMethod.Post, new { @class = "row g-3" }))
+{
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="mb-3">
+        <label for="Utente" class="form-label">Utente</label>
+        <input type="text" class="form-control" id="Utente" name="utente">
+    </div>
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="Email" name="email">
+    </div>
+
+    <div class="mb-3">
+        <label for="Password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="Password" name="password">
+    </div>
+
+    @*<div class="mb-3">
+        <label for="Ruolo" class="form-label">Ruolo</label>
+        <input type="text" class="form-control" id="Ruolo" name="ruolo">
+    </div>*@
+
+    <button type="submit" class="btn btn-primary">Create</button>
+}
+
+

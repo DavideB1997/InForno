@@ -12,7 +12,7 @@ namespace InForno.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Utenti()
         {
-            Carrello = new HashSet<Carrello>();
+            Carrelloes = new HashSet<Carrello>();
         }
 
         [Key]
@@ -32,6 +32,23 @@ namespace InForno.Models
         public string Ruolo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carrello> Carrello { get; set; }
+        public virtual ICollection<Carrello> Carrelloes { get; set; }
+    }
+
+    public class Login
+    {
+        public string Utente { get; set; }
+        public string Password { get; set; }
+
+    }
+
+
+    public class UtenteReg
+    {
+        public string Utente { get; set; }
+        public string Password { get; set; }
+        public string Ruolo { get; set; }
+        public string Email { get; set; }
+
     }
 }

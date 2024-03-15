@@ -12,11 +12,11 @@ namespace InForno.Controllers
         DBContext db = new DBContext();
 
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "0")]
         // GET: Utenti
         public ActionResult Index()
         {
-            var utenti = db.Utenti.ToList();
+            var utenti = db.Utentis.ToList();
             return View(utenti);
         }
     }

@@ -5,7 +5,6 @@ namespace InForno.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web;
 
     [Table("Articolo")]
     public partial class Articolo
@@ -13,8 +12,8 @@ namespace InForno.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Articolo()
         {
-            ArticoloCarrello = new HashSet<ArticoloCarrello>();
-            Ingredienti = new HashSet<Ingredienti>();
+            ArticoloCarrelloes = new HashSet<ArticoloCarrello>();
+            Ingredientis = new HashSet<Ingredienti>();
         }
 
         [Key]
@@ -36,27 +35,11 @@ namespace InForno.Models
         public int TempoConsegna { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ArticoloCarrello> ArticoloCarrello { get; set; }
+        public virtual ICollection<ArticoloCarrello> ArticoloCarrelloes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ingredienti> Ingredienti { get; set; }
+        public virtual ICollection<Ingredienti> Ingredientis { get; set; }
     }
-
-
-    public class AddArticoloViewModel
-    {
-        // Proprietà della classe AddArticoloViewModel
-        public Articolo Articolo { get; set; }
-        public List<Ingredienti> Ingredienti { get; set; }
-        public HttpPostedFileBase ImmagineFile { get; set; }
-        public AddArticoloViewModel()
-        {
-            // Inizializza la lista degli ingredienti
-            Ingredienti = new List<Ingredienti>();
-        }
-    }
-
-
 
     public class ArticoloLista
     {
@@ -66,5 +49,30 @@ namespace InForno.Models
         public int Prezzo { get; set; }
         public int TempoConsegna { get; set; }
         public List<Ingredienti> Ingredienti { get; set; }
+    }
+
+
+    public partial class ArticoloDaCarrello
+    {
+        public int IdArticolo { get; set; }
+        public int IdCarrello { get; set; }
+        public int Quantità { get; set; }
+        public string Nome { get; set; }
+        public string Descrizione { get; set; }
+        public int Prezzo { get; set; }
+        public int TempoConsegna { get; set; }
+        public int Evaso { get; set; }
+
+        public int Totale { get; set; }
+    }
+
+
+    public partial class ArticoloOrdine
+    {
+        public string Note { get; set; }
+        public string Indirizzo { get; set; }
+        public int Evaso { get; set; }
+        public int Totale { get; set; }
+        public string Utente { get; set; }
     }
 }

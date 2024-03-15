@@ -1,0 +1,50 @@
+﻿@model IEnumerable<InForno.Models.ArticoloOrdine>
+
+@{
+    ViewBag.Title = "OrdiniLista";
+}
+
+<h2>OrdiniLista</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Completo</th>
+            <th>Utente</th>
+            <th>Indirizzo</th>
+            <th>Totale</th>
+            <th>Note</th>
+            <th>Evaso</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var articolo in ViewBag.ListaOrdini)
+        {
+            if (articolo.Evaso == 0)
+            {
+                <tr>
+                    <td>Non Completo</td>
+                    <td>@articolo.Utente</td>
+                    <td>@articolo.Indirizzo</td>
+                    <td>@articolo.Totale</td>
+                    <td>@articolo.Note</td>
+                    <td>@articolo.Evaso</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>Completo</td>
+                    <td>@articolo.Utente</td>
+                    <td>@articolo.Indirizzo</td>
+                    <td>@articolo.Totale</td>
+                    <td>@articolo.Note</td>
+                    <td>@articolo.Evaso</td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
